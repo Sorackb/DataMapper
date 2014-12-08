@@ -119,7 +119,7 @@ public class DataMapperBR {
           if (requestType.equals(RequestType.GET)) {
             for (ChildParameter childParameter : child.getParameters()) {
               // Relaciono o que tem no valor do parâmetro (indica o campo) com o registro em questão.
-              parameters.put(childParameter.getName(), record.get(childParameter.getField()));
+              parameters.put(childParameter.getName(), record.get(childParameter.getField().trim()));
             }
             // SEARCH não possui filhos
           } else if (!requestType.equals(RequestType.SEARCH)) {

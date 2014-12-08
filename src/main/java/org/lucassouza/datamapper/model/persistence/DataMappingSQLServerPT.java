@@ -19,14 +19,14 @@ public class DataMappingSQLServerPT implements Persistent {
   public LinkedHashSet<LinkedHashMap<String, Object>> performSQL(String sql,
           LinkedHashMap<String, Object> parameters) throws SQLException {
     LinkedHashSet<LinkedHashMap<String, Object>> result = new LinkedHashSet<>();
-    Set<String> listaNomeParametro = parameters.keySet();
+    Set<String> parameterNameList = parameters.keySet();
 
     Connection connection = SQLServerConnection.getSQLServerConnection();
     CallableStatement statement;
     ResultSet resultSet;
     ResultSetMetaData resultSetMetaData;
 
-    for (String parameterName : listaNomeParametro) {
+    for (String parameterName : parameterNameList) {
       Object valor = parameters.get(parameterName);
 
       if (valor instanceof String) {

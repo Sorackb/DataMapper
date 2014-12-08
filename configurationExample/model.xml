@@ -10,6 +10,6 @@
     </action>
   </actions>
   <parameters>
-    <parameter type="INT"/>
+    <parameter name="ID_BRAND" type="INT"/>
   </parameters>
 </resourceConfiguration>

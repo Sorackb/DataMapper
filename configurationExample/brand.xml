@@ -6,15 +6,18 @@
       select b.id,
              b.description
         from fipe.tb_brand b
+       where [ID] = 0
+          or b.id = [ID]
     </action>
   </actions>
   <children>
     <child resource="model">
       <childParameters>
-        <childParameter name="ID_BRAND" type="INT">
-          id
-        </childParameter>
+        <childParameter name="ID_BRAND" type="INT">id</childParameter>
       </childParameters>
     </child>
   </children>
+  <parameters>
+    <parameter name="ID" type="INT">0</parameter>
+  </parameters>
 </resourceConfiguration>
