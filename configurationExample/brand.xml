@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resourceConfiguration>
+  <name>brand</name>
+  <actions>
+    <action type="GET">
+      select b.id,
+             b.description
+        from fipe.tb_brand b
+    </action>
+  </actions>
+  <children>
+    <child resource="model">
+      <childParameters>
+        <childParameter name="ID_BRAND" type="INT">
+          id
+        </childParameter>
+      </childParameters>
+    </child>
+  </children>
+</resourceConfiguration>

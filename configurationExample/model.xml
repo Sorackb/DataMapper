@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resourceConfiguration>
+  <name>model</name>
+  <actions>
+    <action type="GET">
+      select m.id,
+             m.description
+        from fipe.tb_model m
+       where m.id_brand = [ID_BRAND]
+    </action>
+  </actions>
+  <parameters>
+    <parameter type="INT"/>
+  </parameters>
+</resourceConfiguration>
