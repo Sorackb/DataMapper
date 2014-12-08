@@ -19,9 +19,9 @@ public class Child {
 
   @XmlAttribute
   private String resource;
-  @XmlElementWrapper(name = "childParameterList")
+  @XmlElementWrapper(name = "childParameters")
   @XmlElement(name = "childParameter")
-  private LinkedHashSet<ChildParameter> childParameterList;
+  private LinkedHashSet<ChildParameter> childParameters;
   @XmlTransient
   private Resource configuration;
 
@@ -34,11 +34,11 @@ public class Child {
   }
 
   public LinkedHashSet<ChildParameter> getParameters() {
-    return childParameterList;
+    return childParameters;
   }
 
   public void setParameters(LinkedHashSet<ChildParameter> childParameterList) {
-    this.childParameterList = childParameterList;
+    this.childParameters = childParameterList;
   }
 
   public Resource getConfiguration() {

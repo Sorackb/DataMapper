@@ -1,4 +1,4 @@
-package org.lucassouza.datamapper.modelo.persistence;
+package org.lucassouza.datamapper.model.persistence;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

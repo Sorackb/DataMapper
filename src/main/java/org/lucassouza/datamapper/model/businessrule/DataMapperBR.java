@@ -1,7 +1,7 @@
-package org.lucassouza.datamapper.modelo.businessrule;
+package org.lucassouza.datamapper.model.businessrule;
 
-import org.lucassouza.datamapper.modelo.persistence.DataMappingSQLServerPT;
-import org.lucassouza.datamapper.modelo.persistence.Persistent;
+import org.lucassouza.datamapper.model.persistence.DataMappingSQLServerPT;
+import org.lucassouza.datamapper.model.persistence.Persistent;
 import org.lucassouza.datamapper.type.RequestType;
 import org.lucassouza.datamapper.vo.Child;
 import org.lucassouza.datamapper.vo.Parameter;
@@ -29,7 +29,7 @@ public class DataMapperBR {
     this.dataMappingPT = new DataMappingSQLServerPT();
   }
 
-  public String performAllActions(String jsonRequisicao,
+  public String performAllActions(String requestJson,
           RequestType requestType) throws FileNotFoundException,
           JAXBException,
           SQLException,
@@ -39,7 +39,7 @@ public class DataMapperBR {
     LinkedHashMap<String, Object> parameters;
     String resource;
 
-    json = converter.fromJson(jsonRequisicao, LinkedHashMap.class);
+    json = converter.fromJson(requestJson, LinkedHashMap.class);
     resource = json.keySet().iterator().next();
     parameters = this.linkedTreeMapParaLinkedHashMap((LinkedTreeMap) ((ArrayList) json.get(resource)).get(0));
 
@@ -58,7 +58,7 @@ public class DataMapperBR {
   private LinkedHashMap<String, Object> performAction(Resource configuration,
           RequestType requestType, LinkedHashMap<String, Object> parameterValueList)
           throws FileNotFoundException, JAXBException, SQLException, Exception {
-    LinkedHashMap<String, Parameter> parameterConfigurationList = configuration.getParameterList();
+    LinkedHashMap<String, Parameter> parameterConfigurationList = configuration.getParameters();
     LinkedHashMap<String, Object> fields = new LinkedHashMap<>();
     LinkedHashSet<LinkedHashMap<String, Object>> records;
     LinkedHashMap<String, Object> result = new LinkedHashMap<>();
@@ -98,8 +98,8 @@ public class DataMapperBR {
       }
     }
 
-    if (configuration.getActionList().containsKey(requestType.toString())) {
-      records = this.dataMappingPT.performSQL(configuration.getActionList().get(
+    if (configuration.getActions().containsKey(requestType.toString())) {
+      records = this.dataMappingPT.performSQL(configuration.getActions().get(
               requestType.toString()), fields);
     } else {
       throw new Exception("\"" + requestType.toString() + "\" absent on \""
@@ -107,12 +107,12 @@ public class DataMapperBR {
     }
 
     // Configuração de filhos
-    if (configuration.getChildList() != null) {
+    if (configuration.getChildren() != null) {
       for (LinkedHashMap<String, Object> record : records) {
         LinkedHashMap<String, Object> childResult;
         LinkedHashMap<String, Object> parameters;
 
-        for (Child child : configuration.getChildList()) {
+        for (Child child : configuration.getChildren()) {
           parameters = new LinkedHashMap<>();
 
           // Para GET continua na loucura de parâmetros normalmente

@@ -1,22 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 package org.lucassouza.datamapper.vo.adapter;
 
 import java.util.LinkedHashSet;
@@ -30,45 +11,45 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author Lucas Souza [sorackb@gmail.com]
  */
-public class ActionMapAT extends XmlAdapter<ActionMapAT.AcaoMapAdaptado, TreeMap<String, String>> {
+public class ActionMapAT extends XmlAdapter<ActionMapAT.ActionMapAdapted, TreeMap<String, String>> {
 
-  public static class AcaoMapAdaptado {
+  public static class ActionMapAdapted {
 
-    public LinkedHashSet<ActionMapAT.AcaoLida> acao = new LinkedHashSet<>();
+    public LinkedHashSet<ActionMapAT.ActionRead> action = new LinkedHashSet<>();
   }
 
-  public static class AcaoLida {
+  public static class ActionRead {
 
     @XmlAttribute
-    public String tipo;
+    public String type;
     @XmlValue
-    public String conteudo;
+    public String content;
   }
 
   @Override
-  public TreeMap<String, String> unmarshal(ActionMapAT.AcaoMapAdaptado acaoMapAdaptado) throws Exception {
+  public TreeMap<String, String> unmarshal(ActionMapAT.ActionMapAdapted actionMapAdapted) throws Exception {
     TreeMap<String, String> map = new TreeMap<>();
 
-    for (ActionMapAT.AcaoLida acaoLida : acaoMapAdaptado.acao) {
-      map.put(acaoLida.tipo, acaoLida.conteudo);
+    for (ActionMapAT.ActionRead readedAction : actionMapAdapted.action) {
+      map.put(readedAction.type, readedAction.content);
     }
 
     return map;
   }
 
   @Override
-  public ActionMapAT.AcaoMapAdaptado marshal(TreeMap<String, String> map) throws Exception {
-    ActionMapAT.AcaoMapAdaptado acaoMapAdaptado = new ActionMapAT.AcaoMapAdaptado();
+  public ActionMapAT.ActionMapAdapted marshal(TreeMap<String, String> map) throws Exception {
+    ActionMapAT.ActionMapAdapted actionMapAdapted = new ActionMapAT.ActionMapAdapted();
 
     for (Map.Entry<String, String> mapEntry : map.entrySet()) {
-      ActionMapAT.AcaoLida acaoLida = new ActionMapAT.AcaoLida();
+      ActionMapAT.ActionRead actionRead = new ActionMapAT.ActionRead();
 
-      acaoLida.tipo = mapEntry.getKey();
-      acaoLida.conteudo = map.get(acaoLida.tipo);
+      actionRead.type = mapEntry.getKey();
+      actionRead.content = map.get(actionRead.type);
 
-      acaoMapAdaptado.acao.add(acaoLida);
+      actionMapAdapted.action.add(actionRead);
     }
 
-    return acaoMapAdaptado;
+    return actionMapAdapted;
   }
 }

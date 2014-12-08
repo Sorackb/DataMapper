@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class Resource {
 
   private String name;
-  private TreeMap<String, String> actionList;
-  private LinkedHashMap<String, Parameter> parameterList;
-  private LinkedHashSet<Child> childList;
+  private TreeMap<String, String> actions;
+  private LinkedHashMap<String, Parameter> parameters;
+  private LinkedHashSet<Child> children;
 
   public String getName() {
     return name;
@@ -30,33 +30,33 @@ public class Resource {
     this.name = name;
   }
 
-  public LinkedHashMap<String, Parameter> getParameterList() {
-    return parameterList;
+  public LinkedHashMap<String, Parameter> getParameters() {
+    return parameters;
   }
 
   @XmlJavaTypeAdapter(ParametersMapAT.class)
-  @XmlElement(name = "parameterList")
-  public void setParameterList(LinkedHashMap<String, Parameter> parameterList) {
-    this.parameterList = parameterList;
+  @XmlElement(name = "parameters")
+  public void setParameters(LinkedHashMap<String, Parameter> parameters) {
+    this.parameters = parameters;
   }
 
-  @XmlElementWrapper(name = "childList")
+  @XmlElementWrapper(name = "children")
   @XmlElement(name = "child")
-  public LinkedHashSet<Child> getChildList() {
-    return childList;
+  public LinkedHashSet<Child> getChildren() {
+    return children;
   }
 
-  public void setChildList(LinkedHashSet<Child> filhos) {
-    this.childList = filhos;
+  public void setChildren(LinkedHashSet<Child> children) {
+    this.children = children;
   }
 
-  public TreeMap<String, String> getActionList() {
-    return actionList;
+  public TreeMap<String, String> getActions() {
+    return actions;
   }
 
   @XmlJavaTypeAdapter(ActionMapAT.class)
-  @XmlElement(name = "actionList")
-  public void setActionList(TreeMap<String, String> actionList) {
-    this.actionList = actionList;
+  @XmlElement(name = "actions")
+  public void setActions(TreeMap<String, String> actions) {
+    this.actions = actions;
   }
 }

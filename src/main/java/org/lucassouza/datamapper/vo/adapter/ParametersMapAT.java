@@ -12,54 +12,54 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  *
  * @author Lucas Souza [sorackb@gmail.com]
  */
-public class ParametersMapAT extends XmlAdapter<ParametersMapAT.ParametroMapAdaptado, LinkedHashMap<String, Parameter>> {
+public class ParametersMapAT extends XmlAdapter<ParametersMapAT.ParametersMapAdapted, LinkedHashMap<String, Parameter>> {
 
-  public static class ParametroMapAdaptado {
+  public static class ParametersMapAdapted {
 
-    public LinkedHashSet<ParametroLido> parametro = new LinkedHashSet<>();
+    public LinkedHashSet<ParameterRead> parameter = new LinkedHashSet<>();
   }
 
-  public static class ParametroLido {
+  public static class ParameterRead {
 
     @XmlAttribute
-    public String nome;
+    public String name;
     @XmlAttribute
-    public String tipo;
+    public String type;
     @XmlValue
-    public String padrao;
+    public String defaultValue;
   }
 
   @Override
-  public LinkedHashMap<String, Parameter> unmarshal(ParametroMapAdaptado parametroMapAdaptado)
+  public LinkedHashMap<String, Parameter> unmarshal(ParametersMapAdapted parametersMapAdapted)
           throws Exception {
     LinkedHashMap<String, Parameter> map = new LinkedHashMap<>();
 
-    for (ParametroLido parametroLido : parametroMapAdaptado.parametro) {
-      Parameter configuracaoParametro = new Parameter();
+    for (ParameterRead parameterRead : parametersMapAdapted.parameter) {
+      Parameter parameterConfiguration = new Parameter();
 
-      configuracaoParametro.setType(parametroLido.tipo);
-      configuracaoParametro.setDefaultValue(parametroLido.padrao);
+      parameterConfiguration.setType(parameterRead.type);
+      parameterConfiguration.setDefaultValue(parameterRead.defaultValue);
 
-      map.put(parametroLido.nome, configuracaoParametro);
+      map.put(parameterRead.name, parameterConfiguration);
     }
 
     return map;
   }
 
   @Override
-  public ParametroMapAdaptado marshal(LinkedHashMap<String, Parameter> map) throws Exception {
-    ParametroMapAdaptado parametroMapAdaptado = new ParametroMapAdaptado();
+  public ParametersMapAdapted marshal(LinkedHashMap<String, Parameter> map) throws Exception {
+    ParametersMapAdapted parametersMapAdapted = new ParametersMapAdapted();
 
     for (Map.Entry<String, Parameter> mapEntry : map.entrySet()) {
-      ParametroLido parametroLido = new ParametroLido();
+      ParameterRead parameterRead = new ParameterRead();
 
-      parametroLido.nome = mapEntry.getKey();
-      parametroLido.tipo = map.get(parametroLido.nome).getType();
-      parametroLido.padrao = map.get(parametroLido.nome).getDefaultValue();
+      parameterRead.name = mapEntry.getKey();
+      parameterRead.type = map.get(parameterRead.name).getType();
+      parameterRead.defaultValue = map.get(parameterRead.name).getDefaultValue();
 
-      parametroMapAdaptado.parametro.add(parametroLido);
+      parametersMapAdapted.parameter.add(parameterRead);
     }
 
-    return parametroMapAdaptado;
+    return parametersMapAdapted;
   }
 }

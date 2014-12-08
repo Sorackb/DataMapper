@@ -1,4 +1,4 @@
-package org.lucassouza.datamapper.modelo.persistence;
+package org.lucassouza.datamapper.model.persistence;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -13,21 +13,21 @@ public class SQLServerConnection {
 
   public static Connection getSQLServerConnection() {
     SQLServerDataSource ds = new SQLServerDataSource();
-    String instancia = null;
+    String instance = null;
     Connection connection;  //atributo do tipo Connection
-    String servidorInstancia[];
-    String servidorSQL;
+    String instanceServer[];
+    String sqlServer;
 
     try {
-      servidorInstancia = Configuration.getProperty("connection.host", "127.0.0.1").split("\\\\");
-      servidorSQL = servidorInstancia[0];
+      instanceServer = Configuration.getProperty("connection.host", "127.0.0.1").split("\\\\");
+      sqlServer = instanceServer[0];
 
-      if (servidorInstancia.length > 1) {
-        instancia = servidorInstancia[1];
+      if (instanceServer.length > 1) {
+        instance = instanceServer[1];
       }
 
-      ds.setServerName(servidorSQL);
-      ds.setInstanceName(instancia);
+      ds.setServerName(sqlServer);
+      ds.setInstanceName(instance);
       ds.setDatabaseName(Configuration.getProperty("connection.database"));
       ds.setUser(Configuration.getProperty("connection.user"));
       ds.setPassword(Configuration.getProperty("connection.password"));

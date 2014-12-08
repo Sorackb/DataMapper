@@ -1,4 +1,4 @@
-package org.lucassouza.datamapper.modelo.businessrule;
+package org.lucassouza.datamapper.model.businessrule;
 
 import org.lucassouza.datamapper.vo.Child;
 import org.lucassouza.datamapper.vo.Resource;
@@ -20,10 +20,9 @@ import org.lucassouza.datamapper.utils.Configuration;
 public class MappingRuleBR {
 
   private static final HashMap<String, Resource> resourceList = new HashMap<>();
-  private static String mappingFolder;
+  private static String mappingFolder = Configuration.getProperty("basic.mappingfolder");
 
   public static void load() {
-    mappingFolder = Configuration.getProperty("basico.mappingfolder");
     load(new File(mappingFolder));
   }
 
@@ -58,7 +57,7 @@ public class MappingRuleBR {
         LinkedHashSet<Child> children;
 
         configuration = (Resource) unmarshaller.unmarshal(xml);
-        children = configuration.getChildList();
+        children = configuration.getChildren();
         if (children != null) {
           for (Child childConfiguration : children) {
             String childResourceDescription = childConfiguration.getResource();
